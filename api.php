@@ -1,9 +1,9 @@
 <?php 
 
-$conn = new mysqli("localhost", "root", "", "kkvue");
+$conn = new mysqli("localhost", "root", "", "vuejs");
 if ($conn->connect_error) {
-	die("Database connection established Failed..");
-} 
+	die("Error in database connection..");
+}
 $res = array('error' => false);
 
 
@@ -30,10 +30,10 @@ if ($action == 'create') {
 	$email = $_POST['email'];
 	$mobile = $_POST['mobile'];
 
-
+	
 	$result = $conn->query("INSERT INTO `users` (`username`, `email`, `mobile`) VALUES ('$username', '$email', '$mobile') ");
 	if ($result) {
-		$res['message'] = "User Added successfully";
+		$res['message'] = "User added successfully";
 	} else{
 		$res['error'] = true;
 		$res['message'] = "Insert User fail";
@@ -47,10 +47,9 @@ if ($action == 'update') {
 	$email = $_POST['email'];
 	$mobile = $_POST['mobile'];
 
-
-	$result = $conn->query("UPDATE `users` SET `username` = '$username', `email` = '$email', `mobile` = '$mobile'WHERE `id` = '$id'");
+	$result = $conn->query("UPDATE `users` SET `username` = '$username', `email` = '$email', `mobile` = '$mobile' WHERE `id` = '$id'");
 	if ($result) {
-		$res['message'] = "User Updated successfully";
+		$res['message'] = "User updated successfully";
 	} else{
 		$res['error'] = true;
 		$res['message'] = "User Update failed";
@@ -89,5 +88,3 @@ $conn -> close();
 header("Content-type: application/json");
 echo json_encode($res);
 die();
-
- ?>
